@@ -1,28 +1,53 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-const CHOICES = [
-  {
-    name: 'rock',
-    uri: ''
-  },
-  {
-    name: 'paper',
-    uri: ''
-  },
-  {
-    name: 'scissors',
-    uri: ''
-  }
-];
+import ChoicesButton from './components/ChoicesButton';
+import CHOICES from './Choices'
+import ChoiceCard from './components/ChoiceCard';
+import Result from './components/Result';
+import { randomComputerChoice, getRoundOutcome } from './processFunc'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userChoice: {},
+      computerChoice: {},
+      result: ''
+    };
+  }
+
+  onChoicesPress = (choices) => {
+    /*if onpress item.name === choice => userChoice will return choices.*/
+    const userChoice = CHOICES.find(item => item.name === choices)
+    const computerChoice = randomComputerChoice()
+    const result = getRoundOutcome(userChoice.name, computerChoice.name)
+    /* this.setState({userChoice: userChoice, computerChoice: computerChoice}) ES6 syntax*/
+    this.setState({userChoice, computerChoice, result})
+  }
+  
   render() {
+    console.log('renderding');
+    console.log(this.state.result);
     return (
       <View style={styles.container}>
         <View style={styles.result}></View>
-        <View style={styles.displayMonitor}></View>
+          <Result result={this.state.result} />
+        <View style={styles.choicesContainer}>
+          <ChoiceCard 
+            userName='You'
+            choices={this.state.userChoice}
+          />
+          <Text>VS</Text>
+          <ChoiceCard 
+            userName='Computer'
+            choices={this.state.computerChoice}
+          />
+        </View>
+
         <View style={styles.choiceButtons}></View>
+          <View>
+            <ChoicesButton onButtonPress={this.onChoicesPress} />
+          </View>
       </View>
     );
   }
@@ -31,46 +56,30 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#e9ebee',
     justifyContent: 'center',
-    backgroundColor: '#e9ebee'
+    alignItems: 'center'
   },
   result: {
     flex: 0.15,
-    backgroundColor: 'cyan'
   },
   displayMonitor: {
     flex: 0.5,
-    backgroundColor: 'pink'
   },
   choiceButtons: {
     flex: 0.35,
-    backgroundColor: 'gray'
   },
   buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonStyle: {
-    width: 200,
-    margin: 10,
-    height: 50,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#640D14',
-  },
-  buttonText: {
-    fontSize: 25,
-    color: 'white',
-    fontWeight: 'bold',
-  },
   choicesContainer: {
-    margin: 10,
+    flex: 0.5,
+    margin: 5,
     borderWidth: 2,
-    paddingTop: 100,
+    //paddingTop: 100,
     shadowRadius: 5,
-    paddingBottom: 100,
+    //paddingBottom: 100,
     borderColor: 'grey',
     shadowOpacity: 0.90,
     flexDirection: 'row',
@@ -79,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     shadowColor: 'rgba(0,0,0,0.2)',
     shadowOffset: {
-      eight: 5,
+      height: 5,
       width: 5
     },
   },
@@ -87,20 +96,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  choiceDescription: {
-    fontSize: 25,
-    color: '#250902',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline'
-  },
-  choiceCardTitle: {
-    fontSize: 30,
-    color: '#250902'
-  },
-  choiceImage: {
-    width: 150,
-    height: 150,
-    padding: 10,
-  }
 });
 
