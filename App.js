@@ -4,6 +4,7 @@ import ChoicesButton from './components/ChoicesButton';
 import CHOICES from './Choices'
 import ChoiceCard from './components/ChoiceCard';
 import Result from './components/Result';
+import ResultCount from './components/ResultCount';
 import { randomComputerChoice, getRoundOutcome } from './processFunc'
 
 export default class App extends React.Component {
@@ -22,32 +23,50 @@ export default class App extends React.Component {
     const computerChoice = randomComputerChoice()
     const result = getRoundOutcome(userChoice.name, computerChoice.name)
     /* this.setState({userChoice: userChoice, computerChoice: computerChoice}) ES6 syntax*/
-    this.setState({userChoice, computerChoice, result})
+    this.setState({ userChoice, computerChoice, result })
   }
-  
+
   render() {
-    console.log('renderding');
-    console.log(this.state.result);
     return (
       <View style={styles.container}>
-        <View style={styles.result}></View>
+
+        <View style={styles.result}>
           <Result result={this.state.result} />
-        <View style={styles.choicesContainer}>
-          <ChoiceCard 
-            userName='You'
-            choices={this.state.userChoice}
+        </View>
+
+        <View style={styles.displayMonitor}>
+          <View style={styles.choicesContainer}>
+            <ChoiceCard
+              userName='You'
+              choices={this.state.userChoice}
+            />
+            <Text>VS</Text>
+            <ChoiceCard
+              userName='Computer'
+              choices={this.state.computerChoice}
+            />
+          </View>
+        </View>
+
+        <View style={styles.count}>
+          <ResultCount 
+            result='Victory'
+            countResult='1'
           />
-          <Text>VS</Text>
-          <ChoiceCard 
-            userName='Computer'
-            choices={this.state.computerChoice}
+          <ResultCount 
+            result='Tie Game'
+            countResult='3'
+          />
+          <ResultCount 
+            result='Defeat'
+            countResult='1'
           />
         </View>
 
-        <View style={styles.choiceButtons}></View>
-          <View>
-            <ChoicesButton onButtonPress={this.onChoicesPress} />
-          </View>
+        <View style={styles.choiceButtons}>
+          <ChoicesButton onButtonPress={this.onChoicesPress} />
+        </View>
+
       </View>
     );
   }
@@ -57,30 +76,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e9ebee',
-    justifyContent: 'center',
-    alignItems: 'center'
+    // justifyContent: 'center',
+    // alignItems: 'center'
   },
   result: {
     flex: 0.15,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'pink',
   },
   displayMonitor: {
-    flex: 0.5,
-  },
-  choiceButtons: {
     flex: 0.35,
-  },
-  buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'red',
   },
   choicesContainer: {
-    flex: 0.5,
-    margin: 5,
+    height: null,
+    width: null,
+    //margin: 5,
     borderWidth: 2,
     //paddingTop: 100,
-    shadowRadius: 5,
     //paddingBottom: 100,
     borderColor: 'grey',
+    shadowRadius: 5,
     shadowOpacity: 0.90,
     flexDirection: 'row',
     alignItems: 'center',
@@ -92,9 +109,17 @@ const styles = StyleSheet.create({
       width: 5
     },
   },
-  choiceContainer: {
-    flex: 1,
+  count: {
+    flex: 0.15,
+    backgroundColor: 'cyan',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  choiceButtons: {
+    flex: 0.35,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

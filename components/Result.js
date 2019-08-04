@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 
 const Result = (props) => {
     return(
@@ -8,4 +8,7 @@ const Result = (props) => {
         </View>
     );
 }
+const styles = StyleSheet.create({
+
+})
 export default Result;
