@@ -5,7 +5,7 @@ import CHOICES from '../Choices'
 const ChoiceCard = props => {
     const {choiceCardTitle, choiceDescription, choiceImage} = styles;
     return(
-        <View>
+        <View style={{justifyContent:'center', alignItems: 'center'}}>
             <Text style={choiceCardTitle}>{props.userName}</Text>
             <Image
                 source={props.choices.src}

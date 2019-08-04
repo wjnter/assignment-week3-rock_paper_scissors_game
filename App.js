@@ -45,8 +45,9 @@ export default class App extends React.Component {
   }
 
   onAnalysis = () => {
-    alert('Victory:'+ {victory})
+    alert('Victory:')
   }
+ 
   onChoicesPress = (choices) => {
     /*if onpress item.name === choice => userChoice will return choices.*/
     const userChoice = CHOICES.find(item => item.name === choices)
@@ -72,11 +73,18 @@ export default class App extends React.Component {
     rateVictoryGames = isNaN(rateVictoryGames) ? 0 : rateVictoryGames;
     rateDrawGames = isNaN(rateDrawGames) ? 0 : rateDrawGames;
     rateDefeatGames = isNaN(rateDefeatGames) ? 0 : rateDefeatGames;
-
+    colorEvent = (result) => {
+      if (result === 'Victory')
+        return styles.victoryResult
+      if (result === 'Tie game')
+        return styles.drawResult
+      if (result === 'Defeat')
+        return styles.defeatResult
+  }
     return (
       <View style={styles.container}>
 
-        <View style={styles.result}>
+        <View style={[colorEvent(this.state.result), styles.result]}>
           <AnalysisButton onResetButton={this.onAnalysis} />
           <Result result={this.state.result} />
           <ResetButton onResetButton={this.onReset} />
@@ -88,7 +96,7 @@ export default class App extends React.Component {
               userName='You'
               choices={this.state.userChoice}
             />
-            <Text>VS</Text>
+            <Text style={{fontSize: 27, color: 'cyan', fontWeight: 'bold'}}>VS</Text>
             <ChoiceCard
               userName='Computer'
               choices={this.state.computerChoice}
@@ -98,8 +106,8 @@ export default class App extends React.Component {
 
         <View style={styles.count}>
           <View style={styles.countStyles}>
-            <Text>Played Games:</Text>
-            <Text>{this.state.playedGames}</Text>
+            <Text style={styles.textStyles}>Played Games</Text>
+            <Text style={styles.numberStyles}>{this.state.playedGames}</Text>
             <Text>   </Text>
           </View>
           <ResultCount
@@ -132,16 +140,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e9ebee',
-    // justifyContent: 'center',
-    // alignItems: 'center'
   },
   result: {
     flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    marginBottom: 5,
-    marginHorizontal: 5
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 3,
+    marginHorizontal: 5,
+  },
+  victoryResult: {
+    backgroundColor: 'green'
+  },
+  defeatResult: {
+    backgroundColor: 'red'
+  },
+  drawResult: {
+    backgroundColor: 'orange'
   },
   displayMonitor: {
     flex: 0.45,
@@ -167,12 +183,22 @@ const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'flex-start'
   },
   countStyles: {
     justifyContent:'center',
     alignItems: 'center',
   },
+  textStyles: {
+    fontWeight: 'bold',
+    color: '#6840de', 
+    fontSize: 17
+},
+numberStyles: {
+    fontWeight: '500',
+    color: '#e68312',
+    fontSize: 14
+},
   choiceButtons: {
     flex: 0.35,
     alignItems: 'center',

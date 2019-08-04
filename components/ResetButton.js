@@ -11,7 +11,7 @@ const ResetButton = (props) => {
             >
             <MaterialCommunityIcons 
                 name='restart'
-                size={20}
+                size={25}
                 color='white'
             />
         </TouchableOpacity>
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'gray',
-        borderRadius: 10,
     }
 })
 export default ResetButton;
