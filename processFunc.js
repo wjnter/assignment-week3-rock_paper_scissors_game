@@ -15,4 +15,5 @@ const getRoundOutcome = (userChoice, computerChoice) => {
   }
   return result;
 }
+
 export {randomComputerChoice, getRoundOutcome}

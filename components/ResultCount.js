@@ -6,6 +6,7 @@ const ResultCount = (props) => {
         <View style={styles.countStyles}>
             <Text>{props.result}</Text>
             <Text>{props.countResult}</Text>
+            <Text>{props.rate}%</Text>
         </View>
     );
 }
