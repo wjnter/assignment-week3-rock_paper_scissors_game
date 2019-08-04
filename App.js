@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ChoicesButton from './components/ChoicesButton';
 import CHOICES from './Choices'
+import COMPUTER_CHOICES from './ComputerChoices'
 import ChoiceCard from './components/ChoiceCard';
 import Result from './components/Result';
 import ResultCount from './components/ResultCount';
@@ -146,8 +147,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 3,
+    marginTop: 30,
+    marginBottom: 5,
     marginHorizontal: 5,
   },
   victoryResult: {

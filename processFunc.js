@@ -1,4 +1,4 @@
-const randomComputerChoice = () => CHOICES[Math.floor(Math.random() * CHOICES.length)]
+const randomComputerChoice = () => COMPUTER_CHOICES[Math.floor(Math.random() * COMPUTER_CHOICES.length)]
 const getRoundOutcome = (userChoice, computerChoice) => {
   let result;
   if (userChoice === 'rock') {
